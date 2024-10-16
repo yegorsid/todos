@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { useShallow } from 'zustand/react/shallow';
 
 export type Task = {
+  id: string,
   name: string,
   isCompleted: boolean
 }
@@ -10,8 +11,8 @@ export type Task = {
 export type State = {
   tasks: Task[],
   addTask: (task: Task) => void,
-  toggleTaskStatus: (taskName: string) => void,
-  deleteTask: (taskName: string) => void
+  toggleTaskStatus: (taskId: string) => void,
+  deleteTask: (taskId: string) => void
 }
 
 const useStore = create<State>() (
@@ -23,10 +24,10 @@ const useStore = create<State>() (
           const tasks = get().tasks;
           set({tasks: tasks.concat(task)});
         },
-        toggleTaskStatus: (taskName: string) => {
+        toggleTaskStatus: (taskId: string) => {
           const tasks = get().tasks;
           const newTasks = tasks.map(task => {
-            if (task.name === taskName) {
+            if (task.id === taskId) {
               return {
                 ...task,
                 isCompleted: !task.isCompleted
@@ -38,9 +39,9 @@ const useStore = create<State>() (
 
           set({tasks: newTasks})
         },
-        deleteTask: (taskName: string) => {
+        deleteTask: (taskId: string) => {
           const tasks = get().tasks;
-          const newTasks = tasks.filter(task => task.name !== taskName);
+          const newTasks = tasks.filter(task => task.id !== taskId);
 
           set({tasks: newTasks})
         }

@@ -1,7 +1,8 @@
 import '../styles/App.css'
-import { Button, Flex, Heading, Input, Tab, TabList, TabPanel, TabPanels, Tabs, useToast } from '@chakra-ui/react';
+import { Button, Flex, Heading, Input, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { State, useShallowStore } from '../utils/store.ts';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Todo from './Todo.tsx';
 
 const selector = (state: State) => ({
@@ -16,29 +17,14 @@ function App() {
     tasks,
     addTask
   } = useShallowStore(selector);
-  const toast = useToast();
-
-  const inputIsInvalid = () => {
-    return tasks.some((task) => task.name === inputValue)
-  }
   
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
       <Heading paddingBottom={'24px'}>Todos</Heading>
       <form onSubmit={(e) => {
         e.preventDefault();
-        if (!inputIsInvalid()) {
-          addTask({name: inputValue, isCompleted: false });
-          setInputValue('');
-        } else {
-          toast({
-            title: 'Error',
-            description: "Task is already exist",
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          })
-        }
+        addTask({id: uuidv4(), name: inputValue, isCompleted: false });
+        setInputValue('');
       }}>
         <Input 
           placeholder='What needs to be done' 
@@ -46,7 +32,6 @@ function App() {
           value={inputValue} 
           onChange={(v) => setInputValue(v.target.value)}
           isRequired
-          isInvalid={inputIsInvalid()}
         />
         <Button margin={'16px 0 24px'} width={'200px'} type='submit' isDisabled={!inputValue}>Save</Button>
       </form>
@@ -61,21 +46,21 @@ function App() {
           <TabPanel>
             {tasks.map((task) => {
               return (
-                <Todo task={task} key={task.name}/>
+                <Todo task={task} key={task.id}/>
               )
             })}
           </TabPanel>
           <TabPanel>
             {tasks.filter(task => task.isCompleted === false).map((task) => {
               return (
-                <Todo task={task} key={task.name}/>
+                <Todo task={task} key={task.id}/>
               )
             })}
           </TabPanel>
           <TabPanel>
             {tasks.filter(task => task.isCompleted === true).map((task) => {
               return (
-                <Todo task={task} key={task.name}/>
+                <Todo task={task} key={task.id}/>
               )
             })}
           </TabPanel>

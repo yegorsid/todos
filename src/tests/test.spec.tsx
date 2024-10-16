@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import App from '../components/App.tsx';
 
-describe('test if input and button work correctly', () => {
-  it('should add task', async () => {
+describe('test if app works correctly', () => {
+  it('should add, check and delete task', async () => {
     const user = userEvent.setup();
     render(<App />);
     //test if user can add text to input properly

@@ -7,11 +7,11 @@ const selector = (state: State) => ({
   deleteTask: state.deleteTask
 });
 
-type TodoComponent = {
+type TodoProps = {
   task: Task
 }
 
-function Todo({ task }: TodoComponent) {
+function Todo({ task }: TodoProps) {
   const {
     toggleTaskStatus,
     deleteTask
@@ -20,10 +20,10 @@ function Todo({ task }: TodoComponent) {
   return (
     <Flex marginBottom={'8px'} justifyContent={'space-between'}>
       <Flex gap={'12px'} alignItems={'center'}>
-        <Checkbox isChecked={task.isCompleted} onChange={() => {toggleTaskStatus(task.name)}} />
+        <Checkbox isChecked={task.isCompleted} onChange={() => {toggleTaskStatus(task.id)}} />
         <Text style={task.isCompleted ? {textDecoration: 'line-through', color: 'grey'} : {}}>{task.name}</Text>
       </Flex>
-      <IconButton onClick={() => deleteTask(task.name)} aria-label={"Delete"} size={'sm'} icon={<TiDelete size={'20px'} color="red"/>} variant={"ghost"} />
+      <IconButton onClick={() => deleteTask(task.id)} aria-label={"Delete"} size={'sm'} icon={<TiDelete size={'20px'} color="red"/>} variant={"ghost"} />
     </Flex>
   )
 }
