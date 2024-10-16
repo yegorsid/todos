@@ -9,4 +9,10 @@ npm install
 npm run dev
 ```
 
-Link to build on [GitHub pages](https://yegorsid.github.io/mindbox-test/)
+To run test:
+
+```bash
+npm run test tests/test.spec
+```
+
+Link to [GitHub pages](https://yegorsid.github.io/mindbox-test/)

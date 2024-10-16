@@ -2,7 +2,7 @@ import '../styles/App.css'
 import { Button, Flex, Heading, Input, Tab, TabList, TabPanel, TabPanels, Tabs, useToast } from '@chakra-ui/react';
 import { State, useShallowStore } from '../utils/store.ts';
 import { useState } from 'react';
-import Todo from './Task.tsx';
+import Todo from './Todo.tsx';
 
 const selector = (state: State) => ({
   tasks: state.tasks,
