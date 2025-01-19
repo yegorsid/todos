@@ -15,4 +15,4 @@ To run test:
 npm run test tests/test.spec
 ```
 
-Link to [GitHub pages](https://yegorsid.github.io/mindbox-test/)
+Link to [GitHub pages](https://yegorsid.github.io/todos/)
